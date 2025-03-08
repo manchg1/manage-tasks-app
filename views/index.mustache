@@ -23,16 +23,16 @@
         {{#tasks}}
         <li>
             <b>{{title}}</b> - {{description}} - Due: {{due_date}} - Priority: {{priority}}
-            <form action="/tasks/update/{{id}}" method="POST">
-                <select name="status">
-                    <option value="Pending">Pending</option>
-                    <option value="Completed">Completed</option>
-                </select>
-                <button type="submit">Update</button>
-            </form>
-            <form action="/tasks/delete/{{id}}" method="POST">
-                <button type="submit">Delete</button>
-            </form>
+                <form action="/tasks/update/{{id}}" method="POST">
+                    <select name="status">
+                        <option value="Pending" {{#status}} {{#ifPending}}selected{{/ifPending}} {{/status}}>Pending</option>
+                        <option value="Completed" {{#status}} {{#ifCompleted}}selected{{/ifCompleted}} {{/status}}>Completed</option>
+                    </select>
+                    <button type="submit">Update</button>
+                </form>
+                <form action="/tasks/delete/{{id}}" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
         </li>
         {{/tasks}}
     </ul>

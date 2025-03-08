@@ -5,10 +5,20 @@ const router = express.Router();
 // Show all tasks
 router.get('/', (req, res) => {
     TaskModel.getAllTasks((err, tasks) => {
-        if (err) throw err;
+        if (err) {            c
+            return res.status(500).send("Error retrieving tasks");
+        }
+
+        tasks = tasks.map(task => ({
+            ...task,
+            ifPending: task.status === 'Pending',
+            ifCompleted: task.status === 'Completed'
+        }));
+
         res.render('index', { tasks });
     });
 });
+
 
 router.post('/add', (req, res) => {
     const { title, description, due_date, priority } = req.body;
