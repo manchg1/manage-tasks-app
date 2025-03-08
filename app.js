@@ -13,7 +13,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 app.use('/tasks', taskController);
 
-app.get('/', (req, res) => {});
+app.get('/', (req, res) => {
+    res.redirect('/tasks');
+});
 
 const PORT = 3000;
 app.listen(PORT, () => {
