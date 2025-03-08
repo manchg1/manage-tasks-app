@@ -18,4 +18,21 @@ router.post('/add', (req, res) => {
     });
 });
 
+router.post('/update/:id', (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    TaskModel.updateTaskStatus(id, status, (err) => {
+        if (err) throw err;
+        res.redirect('/tasks');
+    });
+});
+
+router.post('/delete/:id', (req, res) => {
+    const { id } = req.params;
+    TaskModel.deleteTask(id, (err) => {
+        if (err) throw err;
+        res.redirect('/tasks');
+    });
+});
+
 module.exports = router;
