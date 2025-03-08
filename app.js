@@ -2,6 +2,7 @@
 const express = require('express');
 const mustacheExpress = require('mustache-express');
 const bodyParser = require('body-parser');
+const taskController = require('./controllers/taskController');
 const app = express();
 
 app.engine('mustache', mustacheExpress());
