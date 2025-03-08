@@ -5,8 +5,14 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <h1>Task Manager</h1>
-
+    <div class="header-container">
+        <div class="logo-container">
+            <img src="https://www.medboard.com/wp-content/uploads/2024/05/Screenshot-2024-05-01-at-17.46.00.png" alt="Task Manager Logo">
+        </div>
+        <div class="title-container">
+            <h1>Task Manager</h1>
+        </div>
+    </div>
     <form action="/tasks/add" method="POST">
         <input type="text" name="title" placeholder="Task Title" required>
         <input type="text" name="description" placeholder="Description">
