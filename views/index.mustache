@@ -5,5 +5,15 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-</body>
-</html>
+    <h1>Task Manager</h1>
+
+    <form action="/tasks/add" method="POST">
+        <input type="text" name="title" placeholder="Task Title" required>
+        <input type="text" name="description" placeholder="Description">
+        <input type="date" name="due_date" required>
+        <select name="priority">
+            <option value="1">High</option>
+            <option value="2">Medium</option>
+            <option value="3">Low</option>
+        </select>
+        <button type="submit">Add Task</button>
