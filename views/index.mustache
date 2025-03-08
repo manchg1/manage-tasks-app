@@ -42,5 +42,14 @@
         </li>
         {{/tasks}}
     </ul>
+
+    {{#tasks.length}}
+    <div class="delete-all-container">
+        <form action="/tasks/delete-all" method="POST">
+            <button type="submit" class="delete-all-button">Delete All Tasks</button>
+        </form>
+    </div>
+{{/tasks.length}}
+
 </body>
 </html>

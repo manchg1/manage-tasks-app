@@ -16,6 +16,10 @@ class TaskModel {
     
     static deleteTask(id, callback) {
         db.run("DELETE FROM tasks WHERE id = ?", [id], callback);
+    }
+    
+    static deleteAllTasks(callback) {
+        db.run("DELETE FROM tasks", callback);
     }    
 }
 

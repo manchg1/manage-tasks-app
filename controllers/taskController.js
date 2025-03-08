@@ -45,4 +45,11 @@ router.post('/delete/:id', (req, res) => {
     });
 });
 
+router.post('/delete-all', (req, res) => {
+    TaskModel.deleteAllTasks((err) => {
+        if (err) throw err;
+        res.redirect('/tasks');
+    });
+});
+
 module.exports = router;

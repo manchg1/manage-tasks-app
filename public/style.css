@@ -46,6 +46,22 @@ li {
     height: auto;
 }
 
+.delete-all-button {
+    background-color: orange;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.delete-all-button:hover {
+    background-color: darkorange;
+}
+
+
+
 @media (max-width: 768px) {
     form {
         width: 90%;
