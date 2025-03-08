@@ -9,3 +9,17 @@ form {
     max-width: 400px;
     margin: 0 auto;
 }
+
+input, select, button {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+button {
+    background-color: blue;
+    color: white;
+}
+
+button:hover {
+    background-color: darkblue;
+}
