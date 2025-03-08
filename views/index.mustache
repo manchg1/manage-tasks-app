@@ -18,5 +18,23 @@
         </select>
         <button type="submit">Add Task</button>
     </form>
+
+    <ul>
+        {{#tasks}}
+        <li>
+            <b>{{title}}</b> - {{description}} - Due: {{due_date}} - Priority: {{priority}}
+            <form action="/tasks/update/{{id}}" method="POST">
+                <select name="status">
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                </select>
+                <button type="submit">Update</button>
+            </form>
+            <form action="/tasks/delete/{{id}}" method="POST">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {{/tasks}}
+    </ul>
 </body>
 </html>
