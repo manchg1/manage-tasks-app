@@ -6,4 +6,10 @@ class TaskModel {
     }
 }
 
+    static addTask(title, description, due_date, priority, callback) {
+        db.run("INSERT INTO tasks (title, description, due_date, priority, status) VALUES (?, ?, ?, ?, 'Pending')",
+            [title, description, due_date, priority], callback);
+    }   
+
+
 module.exports = TaskModel;
