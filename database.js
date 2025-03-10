@@ -14,7 +14,7 @@ db.serialize(() => {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
         description TEXT,
-        due_date TEXT,
+        due_date DATE,
         priority INTEGER CHECK(priority BETWEEN 1 AND 3),
         status TEXT CHECK(status IN ('Pending', 'Completed'))
     )`);
