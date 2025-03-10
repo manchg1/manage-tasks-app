@@ -8,6 +8,7 @@ form {
     gap: 10px;
     max-width: 400px;
     margin: 0 auto;
+    margin-bottom: 20px; 
 }
 
 input, select, button {
@@ -59,6 +60,33 @@ li {
 .delete-all-button:hover {
     background-color: darkorange;
 }
+
+.filter-sort-bar {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.filter-btn, .sort-btn {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background: darkgray;
+    border-radius: 5px;
+}
+
+.filter-btn:hover, .sort-btn:hover {
+    background: darkgray;
+}
+
+.form-instruction {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
 
 
 
