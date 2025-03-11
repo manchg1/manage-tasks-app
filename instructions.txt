@@ -1,0 +1,16 @@
+Setup Instructions:
+
+1. Install dependencies:
+   npm install
+
+2. Set up the database (if not exists):
+   node database.js
+
+3. Start the server:
+   npm start
+
+4. Access the app:
+   http://localhost:3000
+
+5. Stop the server:
+   CTRL + C
