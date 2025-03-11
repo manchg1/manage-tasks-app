@@ -20,7 +20,13 @@ class TaskModel {
     
     static deleteAllTasks(callback) {
         db.run("DELETE FROM tasks", callback);
-    }    
+    }
+
+    static checkTaskExists(title, callback) {
+        db.get("SELECT * FROM tasks WHERE title = ?", [title], (err, row) => {
+            callback(err, row);
+        });
+    }       
 }
 
 module.exports = TaskModel;

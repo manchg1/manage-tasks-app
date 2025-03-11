@@ -16,7 +16,7 @@
 
     <p class="form-instruction">Add task details to track your progress.</p>
 
-    <form action="/tasks/add" method="POST">
+    <form action="/tasks/add" method="POST" onsubmit="return validateDueDate()">
         <input type="text" name="title" placeholder="Task Title" required>
         <input type="text" name="description" placeholder="Description">
         <input type="date" name="due_date" required>
@@ -29,29 +29,29 @@
     </form>
 
     {{#tasks.length}}
-<div class="filter-sort-bar">
-    <button class="filter-btn" data-filter="all">Show All</button>
-    <button class="filter-btn" data-filter="Pending">Filter by Pending</button>
-    <button class="filter-btn" data-filter="Completed">Filter by Completed</button>
-    <button class="sort-btn" data-sort="date">Sort by Date</button>
-    <button class="sort-btn" data-sort="priority">Sort by Priority</button>
-</div>
-{{/tasks.length}}
+    <div class="filter-sort-bar">
+        <button class="filter-btn" data-filter="all">Show All</button>
+        <button class="filter-btn" data-filter="Pending">Filter by Pending</button>
+        <button class="filter-btn" data-filter="Completed">Filter by Completed</button>
+        <button class="sort-btn" data-sort="date">Sort by Date</button>
+        <button class="sort-btn" data-sort="priority">Sort by Priority</button>
+    </div>
+    {{/tasks.length}}
 
     <ul>
         {{#tasks}}
         <li>
             <b>{{title}}</b> - {{description}} - Due: {{due_date}} - Priority: {{priority}}
-                <form action="/tasks/update/{{id}}" method="POST">
-                    <select name="status">
-                        <option value="Pending" {{#status}} {{#ifPending}}selected{{/ifPending}} {{/status}}>Pending</option>
-                        <option value="Completed" {{#status}} {{#ifCompleted}}selected{{/ifCompleted}} {{/status}}>Completed</option>
-                    </select>
-                    <button type="submit">Update</button>
-                </form>
-                <form action="/tasks/delete/{{id}}" method="POST">
-                    <button type="submit">Delete</button>
-                </form>
+            <form action="/tasks/update/{{id}}" method="POST">
+                <select name="status">
+                    <option value="Pending" {{#ifPending}}selected{{/ifPending}}>Pending</option>
+                    <option value="Completed" {{#ifCompleted}}selected{{/ifCompleted}}>Completed</option>
+                </select>
+                <button type="submit">Update</button>
+            </form>
+            <form action="/tasks/delete/{{id}}" method="POST">
+                <button type="submit">Delete</button>
+            </form>
         </li>
         {{/tasks}}
     </ul>
@@ -62,52 +62,58 @@
             <button type="submit" class="delete-all-button">Delete All Tasks</button>
         </form>
     </div>
-{{/tasks.length}}
+    {{/tasks.length}}
 
+    <script>
+        function validateDueDate() {
+            const dueDateInput = document.querySelector('input[name="due_date"]').value;
+            const today = new Date().toISOString().split('T')[0];
+            if (dueDateInput < today) {
+                alert("Due date is in the past. Please select a future date.");
+                return false;
+            }
+            return true;
+        }
+    </script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const sortButtons = document.querySelectorAll(".sort-btn");
-    const taskList = document.querySelector("ul");
-    const tasks = [...document.querySelectorAll("ul li")];
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const filterButtons = document.querySelectorAll(".filter-btn");
+            const sortButtons = document.querySelectorAll(".sort-btn");
+            const taskList = document.querySelector("ul");
 
-    filterButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            const filter = button.dataset.filter;
-            document.querySelectorAll("ul li").forEach(task => {
-                const taskStatus = task.querySelector("select[name='status']").value;
-                task.style.display = (filter === "all" || taskStatus === filter) ? "flex" : "none";
-            });
-        });
-    });
-
-    sortButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            const sortType = button.dataset.sort;
-            let sortedTasks = [...document.querySelectorAll("ul li")];
-
-            sortedTasks.sort((a, b) => {
-                if (sortType === "date") {
-                    const dateA = new Date(a.innerHTML.match(/\d{4}-\d{2}-\d{2}/)[0]);
-                    const dateB = new Date(b.innerHTML.match(/\d{4}-\d{2}-\d{2}/)[0]);
-                    return dateA - dateB;
-                } else if (sortType === "priority") {
-                    const priorityA = parseInt(a.innerHTML.match(/Priority: (\d)/)[1]);
-                    const priorityB = parseInt(b.innerHTML.match(/Priority: (\d)/)[1]);
-                    return priorityA - priorityB;
-                }
+            filterButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    const filter = button.dataset.filter;
+                    document.querySelectorAll("ul li").forEach(task => {
+                        const taskStatus = task.querySelector("select[name='status']").value;
+                        task.style.display = (filter === "all" || taskStatus === filter) ? "flex" : "none";
+                    });
+                });
             });
 
-            taskList.innerHTML = "";
-            sortedTasks.forEach(task => taskList.appendChild(task));
+            sortButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    const sortType = button.dataset.sort;
+                    let sortedTasks = [...document.querySelectorAll("ul li")];
+
+                    sortedTasks.sort((a, b) => {
+                        if (sortType === "date") {
+                            const dateA = new Date(a.innerHTML.match(/\d{4}-\d{2}-\d{2}/)[0]);
+                            const dateB = new Date(b.innerHTML.match(/\d{4}-\d{2}-\d{2}/)[0]);
+                            return dateA - dateB;
+                        } else if (sortType === "priority") {
+                            const priorityA = parseInt(a.innerHTML.match(/Priority: (\d)/)[1]);
+                            const priorityB = parseInt(b.innerHTML.match(/Priority: (\d)/)[1]);
+                            return priorityA - priorityB;
+                        }
+                    });
+
+                    taskList.innerHTML = "";
+                    sortedTasks.forEach(task => taskList.appendChild(task));
+                });
+            });
         });
-    });
-});
-</script>
-
-
-
-
+    </script>
 </body>
 </html>
